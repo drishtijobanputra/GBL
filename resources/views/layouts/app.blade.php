@@ -18,13 +18,16 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    Godavari Biorefineries Ltd.
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -79,5 +82,30 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src='https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js'></script>
+    
+    <script>
+        $('#data-listing').DataTable({
+      "aLengthMenu": [
+        [5, 10, 15, -1],
+        [5, 10, 15, "All"]
+      ],
+      "iDisplayLength": 10,
+      "language": {
+        search: ""
+      }
+    });
+    $('#data-listing').each(function() {
+      var datatable = $(this);
+      // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+      var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+      search_input.attr('placeholder', 'Search');
+      search_input.removeClass('form-control-sm');
+      // LENGTH - Inline-Form control
+      var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+      length_sel.removeClass('form-control-sm');
+    });
+    </script>
 </body>
 </html>
